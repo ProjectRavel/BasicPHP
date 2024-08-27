@@ -10,8 +10,6 @@ $max = 100;
 //     $min++;
 // }
 
-for($min; $min <= $max; $min++){
-    echo "Angka: ". $min. "<br />";
+for ($min; $min <= $max; $min++) {
+    echo "Angka: " . $min . "<br />";
 }
-
-?>

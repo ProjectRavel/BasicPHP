@@ -8,7 +8,7 @@ $umur = 19;
 //     echo "Umur anda udah cukup!";
 // }
 
-switch($umur){
+switch ($umur) {
     case $umur <= 15:
         echo "Umur anda belum Cukup!";
         break;
@@ -16,5 +16,3 @@ switch($umur){
         echo "Umur anda udah cukup!";
         break;
 };
-
-?>
