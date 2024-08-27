@@ -6,5 +6,9 @@
         "cashier_id" => [1.1, 1.2],
     ];
 
-    echo $db_cashier["user"][0];
+    foreach ($db_cashier as $key => $value){
+        foreach ($value as $val){
+            echo $key . ": " . $val . "<br/>";
+        }
+    };
 ?>  
