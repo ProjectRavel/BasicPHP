@@ -14,3 +14,11 @@ if($getid == false){
 }
 
 echo  "Id: " . $getid['id'] . ", " . "Nama: " . $getid['name'] . ", " . "Umur: " . $getid['umur'] . "\n";
+
+echo "========================== \n";
+
+$showall = $db->getAll();
+
+while($row = $showall->fetch_assoc()){
+    echo "Id: " . $row['id'] . ", " . "Nama: " . $row['name'] . ", " . "Umur: " . $row['umur'] . "\n";
+}
