@@ -1,15 +1,8 @@
 <?php
 
-$min = 0;
-$max = 100;
+$post = ['First Post', 'Second Post', 'Third Post', 'Fourth Post'];
 
-// While
 
-// while($min <= $max){
-//     echo "Angka: " . $min . "<br>";
-//     $min++;
-// }
-
-for ($min; $min <= $max; $min++) {
-    echo "Angka: " . $min . "<br />";
-}
+foreach($post as $post){
+    echo $post. "\n";
+};
