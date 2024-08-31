@@ -1,21 +1,6 @@
 <?php
 
-function luassegitiga($alas, $tinggi){
-    $luas = 0.5 * $alas * $tinggi;
-    return $luas;
-};
 
-function sum(...$number){
-    $sum = 0;
-    foreach($number as $value){
-        $sum += $value;
-    }
-    return $sum;
-}
+$penjumlahan = fn($sum1, $sum2) => $sum1 + $sum2;
 
-
-
-echo luassegitiga(5, 3);
- echo "<br>";
-echo sum(20, 30)
-?>
+echo $penjumlahan(5, 10);
