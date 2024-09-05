@@ -1,21 +1,26 @@
 <?php
 
-if(isset($_POST["nama"])){
-    $nama = $_POST["nama"];
-    echo "Nama saya adalah: " . $nama . "<br/>";
-};
+// $_GET AND $_POST
+$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if(isset($_POST["password"])){
-    $password = $_POST["password"];
-    echo "Password anda: " . $password;
+if (isset($_POST['submit'])) {
+    echo "Name: " . $name . "<br>";
+    echo "Password: " . $password;
 }
+
 
 ?>
 
-<form action="getpost.php" method="POST">
-    Nama: <input type="text" name="nama" />
-    <br><br>
-    Password: <input type="password" name="password" />
-    <br>
-    <input type="submit" / >
+<form action="" method="post">
+    <div>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name">
+        <br>
+        <br>
+        <label for="password">Password: </label>
+        <input type="text" name="password" id="password">
+        <br>
+        <input type="submit" value="submit" name="submit">
+    </div>
 </form>
