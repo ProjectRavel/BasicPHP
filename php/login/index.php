@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $date_now = date('Y-m-d H:i:s');
         $sql = "INSERT INTO businessdb (user, password, reg_date) VALUES ('$username', '$password_hash', '$date_now')";
         try {
-            $result = $ conn->query($sql);
+            $result = $conn->query($sql);
             echo "You are now Registered";
         } catch (mysqli_sql_exception) {
             echo "Name already taken!";
