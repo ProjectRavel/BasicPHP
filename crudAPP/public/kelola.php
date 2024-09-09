@@ -15,6 +15,7 @@ include '../component/navbar.php';
         <input
           type="text"
           id="nisn"
+          name="nisn"
           class="form-control"
           placeholder="Masukkan NISN..." />
       </div>
@@ -24,27 +25,28 @@ include '../component/navbar.php';
         <input
           type="text"
           id="Nama"
+          name="nama"
           class="form-control"
           placeholder="Masukkan Nama Siswa/i" />
       </div>
       <!-- Jenis Kelamin -->
       <div class="mb-3">
         <label for="jeniskelamin" class="form-label">Jenis Kelamin</label>
-        <select id="jeniskelamin" class="form-select">
+        <select id="jeniskelamin" class="form-select" name="jeniskelamin">
           <option selected>Pilih Jenis Kelamin</option>
-          <option value="1">Laki-laki</option>
-          <option value="2">Perempuan</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
         </select>
       </div>
       <!-- Foto Siswa -->
       <div class="mb-3">
         <label for="fotosiswa" class="form-label">Pilih Foto Siswa</label>
-        <input class="form-control" type="file" id="fotosiswa" />
+        <input class="form-control" type="file" id="fotosiswa" name="foto" />
       </div>
       <!-- Alamat -->
       <div class="mb-3">
         <label for="alamat" class="form-label">Alamat</label>
-        <textarea class="form-control" id="alamat" rows="3"></textarea>
+        <textarea class="form-control" id="alamat" rows="3" name="alamat"></textarea>
       </div>
       <div class="d-flex gap-2">
         <?php
@@ -54,7 +56,7 @@ include '../component/navbar.php';
         <?php
         } else {
         ?>
-          <button type="submit" class="btn btn-primary" value="add"><i class="fa-solid fa-plus"></i> Tambahkan Data</button>
+          <button type="submit" class="btn btn-primary" name="aksi" value="add"><i class="fa-solid fa-plus"></i> Tambahkan Data</button>
         <?php
         }
         ?>
