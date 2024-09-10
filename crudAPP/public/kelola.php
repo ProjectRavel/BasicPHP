@@ -6,13 +6,13 @@ include '../component/navbar.php';
 
 <div class="container mt-5">
   <h2 class="mb-4 fw-bold text-primary">Tambah/Edit Data Siswa</h2>
-
-  <form action="proses.php" method="post">
+  <form action="proses.php" method="post" enctype="multipart/form-data">
     <div class="formulir">
       <!-- NISN -->
       <div class="mb-3">
         <label for="nisn" class="form-label">NISN</label>
         <input
+          required
           type="text"
           id="nisn"
           name="nisn"
@@ -23,6 +23,7 @@ include '../component/navbar.php';
       <div class="mb-3">
         <label for="Nama" class="form-label">Nama</label>
         <input
+          required
           type="text"
           id="Nama"
           name="nama"
@@ -32,7 +33,7 @@ include '../component/navbar.php';
       <!-- Jenis Kelamin -->
       <div class="mb-3">
         <label for="jeniskelamin" class="form-label">Jenis Kelamin</label>
-        <select id="jeniskelamin" class="form-select" name="jeniskelamin">
+        <select required id="jeniskelamin" class="form-select" name="jeniskelamin">
           <option selected>Pilih Jenis Kelamin</option>
           <option value="Laki-laki">Laki-laki</option>
           <option value="Perempuan">Perempuan</option>
@@ -41,7 +42,7 @@ include '../component/navbar.php';
       <!-- Foto Siswa -->
       <div class="mb-3">
         <label for="fotosiswa" class="form-label">Pilih Foto Siswa</label>
-        <input class="form-control" type="file" id="fotosiswa" name="foto" />
+        <input class="form-control" type="file" id="fotosiswa" name="foto" accept="image/*" required />
       </div>
       <!-- Alamat -->
       <div class="mb-3">
@@ -62,7 +63,6 @@ include '../component/navbar.php';
         ?>
         <a type="button" class="btn btn-danger" href="index.php"><i class="fa-solid fa-xmark"></i> Batal</a>
       </div>
-
     </div>
   </form>
 </div>
