@@ -1,6 +1,8 @@
 <?php
 require 'connection.php';
-
+$sql = 'SELECT * FROM tb_siswa';
+$result = $conn->query($sql);
+$no = 0;
 ?>
 
 <!DOCTYPE html>
@@ -33,51 +35,71 @@ require 'connection.php';
     </figure>
     <a href="kelola.php" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan Data</a>
     <div class="table-responsive mt-2">
-      <table class="table align-middle table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">NISN</th>
-            <th scope="col">Nama Siswa</th>
-            <th scope="col">Jenis Kelamin</th>
-            <th scope="col">Foto Siswa</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $sql = 'SELECT * FROM tb_siswa';
-          $result = $conn->query($sql);
-          $no = 0;
-          if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-              $id = $row['id_siswa'];
-              $nisn = $row['nisn'];
-              $nama_siswa = $row['nama_siswa'];
-              $jenis_kelamin = $row['jenis_kelamin'];
-              $foto = $row['foto_siswa'];
-              $alamat = $row['alamat'];
-              ++$no;
-              echo "<tr>
+      <?php
+      if ($result->num_rows > 0) {
+        ?>
+        <table class="table align-middle table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">NISN</th>
+              <th scope="col">Nama Siswa</th>
+              <th scope="col">Jenis Kelamin</th>
+              <th scope="col">Foto Siswa</th>
+              <th scope="col">Alamat</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                $id = $row['id_siswa'];
+                $nisn = $row['nisn'];
+                $nama_siswa = $row['nama_siswa'];
+                $jenis_kelamin = $row['jenis_kelamin'];
+                $foto = $row['foto_siswa'];
+                $alamat = $row['alamat'];
+                ++$no;
+                echo "<tr>
             <th scope='row'>$no</th>
             <td>$nisn</td>
             <td>$nama_siswa</td>
             <td>$jenis_kelamin</td>
-            <td><img src='./img/img$no.jpg'></img></td>
+            <td><img src='./img/$foto'></img></td>
             <td>$alamat</td>
             <td>
               <div>
-                <a type='button' class='btn btn-success' href='kelola.php?ubah=1'><i class='fa-solid fa-pen-to-square'></i></a>
-                <a href='proses.php?hapus=$id' type='button' class='btn btn-danger'><i class='fas fa-trash'></i></a>
+                <a type='button' class='btn btn-success href='kelola.php?ubah=1'><i class='fa-solid fa-pen-to-square'></i></a>
+                <button type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-danger'><i class='fas fa-trash'></i></button>
               </div>
             </td>
-          </tr>";
+          </tr>
+          <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal-dialog modal-dialog-centered modal-md'>
+              <div class='modal-content'>
+                <div class='modal-header'>
+                  <h5 class='modal-title' id='exampleModalLabel'>Hapus Modal</h5>
+                  <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+              </div>
+           <div class='modal-body'>
+            <p>Apakah anda yakin ingin menghapus data ini?</p>
+          </div>
+        <div class='modal-footer'>
+          <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Batal</button>
+          <a href='proses.php?hapus=$id' type='button' class='btn btn-danger'>Hapus</a>
+        </div>
+      </div>
+    </div>";
+              }
             }
-          }
-          ?>
-        </tbody>
-      </table>
+            ?>
+          </tbody>
+        </table>
+      <?php } else {
+        echo "<h2 class='text-center'>Data siswa masih kosong.</h2>";
+      }
+      ?>
     </div>
   </div>
 
