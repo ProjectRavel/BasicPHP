@@ -1,5 +1,27 @@
 <!-- Navigation -->
 <?php
+require 'connection.php';
+
+$id = '';
+$nisn = '';
+$nama_siswa = '';
+$jeniskelamin = '';
+$foto = '';
+$alamat = '';
+
+if (isset($_GET['ubah'])) {
+  $nisn_siswa = $_GET['ubah'];
+  $showall = "SELECT * FROM tb_siswa WHERE nisn = '$nisn_siswa'";
+  $resultshow = $conn->query($showall);
+  $row = $resultshow->fetch_assoc();
+  $id = $row['id_siswa'];
+  $nisn = $row['nisn'];
+  $nama_siswa = $row['nama_siswa'];
+  $jeniskelamin = $row['jenis_kelamin'];
+  $foto = $row['foto_siswa'];
+  $alamat = $row['alamat'];
+}
+
 
 include '../component/navbar.php';
 ?>
@@ -8,6 +30,8 @@ include '../component/navbar.php';
   <h2 class="mb-4 fw-bold text-primary">Tambah/Edit Data Siswa</h2>
   <form action="proses.php" method="post" enctype="multipart/form-data">
     <div class="formulir">
+      <!-- id siswa -->
+      <input type="hidden" name="id_siswa" id="id_siswa" value="<?php echo $id ?>">
       <!-- NISN -->
       <div class="mb-3">
         <label for="nisn" class="form-label">NISN</label>
@@ -17,6 +41,7 @@ include '../component/navbar.php';
           id="nisn"
           name="nisn"
           class="form-control"
+          value="<?php echo $nisn ?>"
           placeholder="Masukkan NISN..." />
       </div>
       <!-- Nama -->
@@ -28,26 +53,32 @@ include '../component/navbar.php';
           id="Nama"
           name="nama"
           class="form-control"
-          placeholder="Masukkan Nama Siswa/i" />
+          placeholder="Masukkan Nama Siswa/i"
+          value="<?php echo $nama_siswa ?>" />
       </div>
       <!-- Jenis Kelamin -->
       <div class="mb-3">
         <label for="jeniskelamin" class="form-label">Jenis Kelamin</label>
         <select required id="jeniskelamin" class="form-select" name="jeniskelamin">
-          <option selected>Pilih Jenis Kelamin</option>
-          <option value="Laki-laki">Laki-laki</option>
-          <option value="Perempuan">Perempuan</option>
+          <option value="Laki-laki" <?php if ($jeniskelamin == 'Laki-laki') {
+                                      echo "selected";
+                                    } ?>>Laki-laki</option>
+          <option value="Perempuan" <?php if ($jeniskelamin == 'Perempuan') {
+                                      echo "selected";
+                                    } ?>>Perempuan</option>
         </select>
       </div>
       <!-- Foto Siswa -->
       <div class="mb-3">
         <label for="fotosiswa" class="form-label">Pilih Foto Siswa</label>
-        <input class="form-control" type="file" id="fotosiswa" name="foto" accept="image/*" required />
+        <input class="form-control" type="file" id="fotosiswa" name="foto" accept="image/*" <?php if (!isset($_GET['ubah'])) {
+                                                                                              echo "required";
+                                                                                            } ?> />
       </div>
       <!-- Alamat -->
       <div class="mb-3">
         <label for="alamat" class="form-label">Alamat</label>
-        <textarea class="form-control" id="alamat" rows="3" name="alamat"></textarea>
+        <textarea class="form-control" id="alamat" rows="3" name="alamat"><?php echo $alamat ?></textarea>
       </div>
       <div class="d-flex gap-2">
         <?php

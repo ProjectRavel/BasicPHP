@@ -70,7 +70,7 @@ $no = 0;
             <td>$alamat</td>
             <td>
               <div>
-                <a href='kelola.php?ubah=1' type='button' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
+                <a href='kelola.php?ubah=$nisn' type='button' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
                 <button type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-danger'><i class='fas fa-trash'></i></button>
               </div>
             </td>

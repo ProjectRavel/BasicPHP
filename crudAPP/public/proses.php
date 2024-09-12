@@ -4,8 +4,6 @@ require 'connection.php';
 if (isset($_POST['aksi'])) {
     if ($_POST['aksi'] == "add") {
 
-
-
         $nisn = filter_input(INPUT_POST, 'nisn', FILTER_SANITIZE_SPECIAL_CHARS);
         $nama = filter_input(INPUT_POST, 'nama', FILTER_SANITIZE_SPECIAL_CHARS);
         $jeniskelamin = filter_input(INPUT_POST, 'jeniskelamin', FILTER_SANITIZE_SPECIAL_CHARS);
