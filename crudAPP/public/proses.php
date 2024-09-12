@@ -36,18 +36,33 @@ if (isset($_POST['aksi'])) {
 
 if (isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
-    $showall = "SELECT * FROM tb_siswa WHERE id_siswa = '$id'";
-    $resultshow = $conn->query($showall);
-    $row = $resultshow->fetch_assoc();
-    $foto = $row['foto_siswa'];
-    unlink("img/$foto");
-    $delete = "DELETE FROM tb_siswa WHERE id_siswa=$id";
-    $result = $conn->query($delete);
-    if ($result) {
-        header('location: index.php');
+
+    // Menggunakan Prepared Statement untuk Menghindari SQL Injection
+    $stmt = $conn->prepare("SELECT foto_siswa FROM tb_siswa WHERE id_siswa = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if ($row) {
+        $foto = $row['foto_siswa'];
+        if (file_exists("img/$foto")) {
+            unlink("img/$foto");
+        }
+
+        // Menghapus Data dari Database
+        $stmt = $conn->prepare("DELETE FROM tb_siswa WHERE id_siswa = ?");
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            header('Location: index.php');
+            exit();
+        } else {
+            echo "Gagal Menghapus Data: " . $stmt->error . "<a href='index.php'>[Home]</a>";
+        }
+
+        $stmt->close();
     } else {
-        echo "Gagal Menghapus Data <a href='index.php'>[Home]</a>";
-        echo $delete;
-        echo $result;
+        echo "Data Tidak Ditemukan <a href='index.php'>[Home]</a>";
     }
 }

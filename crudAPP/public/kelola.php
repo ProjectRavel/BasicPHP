@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="">
 <!-- Navigation -->
 <?php
+
 include '../component/navbar.php';
 ?>
 

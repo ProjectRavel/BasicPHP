@@ -37,7 +37,7 @@ $no = 0;
     <div class="table-responsive mt-2">
       <?php
       if ($result->num_rows > 0) {
-        ?>
+      ?>
         <table class="table align-middle table-bordered">
           <thead>
             <tr>
@@ -70,7 +70,7 @@ $no = 0;
             <td>$alamat</td>
             <td>
               <div>
-                <a type='button' class='btn btn-success href='kelola.php?ubah=1'><i class='fa-solid fa-pen-to-square'></i></a>
+                <a href='kelola.php?ubah=1' type='button' class='btn btn-success'><i class='fa-solid fa-pen-to-square'></i></a>
                 <button type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-danger'><i class='fas fa-trash'></i></button>
               </div>
             </td>
@@ -82,7 +82,7 @@ $no = 0;
                   <h5 class='modal-title' id='exampleModalLabel'>Hapus Modal</h5>
                   <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
               </div>
-           <div class='modal-body'>
+            <div class='modal-body'>
             <p>Apakah anda yakin ingin menghapus data ini?</p>
           </div>
         <div class='modal-footer'>
