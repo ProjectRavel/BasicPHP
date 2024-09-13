@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'connection.php';
 $sql = 'SELECT * FROM tb_siswa';
 $result = $conn->query($sql);
@@ -34,11 +35,25 @@ $no = 0;
       </figcaption>
     </figure>
     <a href="kelola.php" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan Data</a>
-    <div class="table-responsive mt-2">
+    <?php
+    if (isset($_SESSION["execute"])):
+    ?>
+      <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <div>
+          <i class="fa-solid fa-circle-check"></i>
+          <?php echo $_SESSION["execute"]; ?>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php
+    session_destroy();
+    endif
+    ?>
+    <div class="table-responsive">
       <?php
       if ($result->num_rows > 0) {
       ?>
-        <table class="table align-middle table-bordered">
+        <table class="table align-middle table-bordered mt-2">
           <thead>
             <tr>
               <th scope="col">No.</th>

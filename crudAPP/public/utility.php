@@ -77,6 +77,7 @@ function hapus_data($get)
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
+            $_SESSION["execute"] = "Data Berhasil Dihapus";
             header('Location: index.php');
             exit();
         } else {
