@@ -13,10 +13,17 @@ $no = 0;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bootstrap demo</title>
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- DataTables CSS CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="index.css">
+
 </head>
 
 <body>
@@ -34,7 +41,7 @@ $no = 0;
         CRUD <cite title="Source Title">Create Read Update Delete</cite>
       </figcaption>
     </figure>
-    <a href="kelola.php" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Tambahkan Data</a>
+    <a href="kelola.php" type="button" class="btn btn-primary mb-4"><i class="fa fa-plus"></i> Tambahkan Data</a>
     <?php
     if (isset($_SESSION["execute"])):
     ?>
@@ -45,38 +52,39 @@ $no = 0;
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+
     <?php
-    session_destroy();
+      session_destroy();
     endif
     ?>
-    <div class="table-responsive">
-      <?php
-      if ($result->num_rows > 0) {
-      ?>
-        <table class="table align-middle table-bordered mt-2">
-          <thead>
-            <tr>
-              <th scope="col">No.</th>
-              <th scope="col">NISN</th>
-              <th scope="col">Nama Siswa</th>
-              <th scope="col">Jenis Kelamin</th>
-              <th scope="col">Foto Siswa</th>
-              <th scope="col">Alamat</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                $id = $row['id_siswa'];
-                $nisn = $row['nisn'];
-                $nama_siswa = $row['nama_siswa'];
-                $jenis_kelamin = $row['jenis_kelamin'];
-                $foto = $row['foto_siswa'];
-                $alamat = $row['alamat'];
-                ++$no;
-                echo "<tr>
+
+    <?php
+    if ($result->num_rows > 0) {
+    ?>
+      <table id="tableSiswa" class="table mt-2" style="width:100%">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">NISN</th>
+            <th scope="col">Nama Siswa</th>
+            <th scope="col">Jenis Kelamin</th>
+            <th scope="col">Foto Siswa</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $id = $row['id_siswa'];
+              $nisn = $row['nisn'];
+              $nama_siswa = $row['nama_siswa'];
+              $jenis_kelamin = $row['jenis_kelamin'];
+              $foto = $row['foto_siswa'];
+              $alamat = $row['alamat'];
+              ++$no;
+              echo "<tr>
             <th scope='row'>$no</th>
             <td>$nisn</td>
             <td>$nama_siswa</td>
@@ -106,17 +114,34 @@ $no = 0;
         </div>
       </div>
     </div>";
-              }
             }
-            ?>
-          </tbody>
-        </table>
-      <?php } else {
-        echo "<h2 class='text-center'>Data siswa masih kosong.</h2>";
-      }
-      ?>
-    </div>
+          }
+          ?>
+        </tbody>
+      </table>
+
+    <?php } else {
+      echo "<h2 class='text-center'>Data siswa masih kosong.</h2>";
+    }
+    ?>
   </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#tableSiswa').DataTable({
+        lengthChange: false,
+        pagingType: 'simple_numbers',
+        language: {
+          search: '', // menghapus label 'Search'
+          searchPlaceholder: 'Cari siswa...',
+          paginate: {
+            previous: "<i class='fas fa-chevron-left'></i>",
+            next: "<i class='fas fa-chevron-right'></i>"
+          }
+        },
+      })
+    })
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -124,6 +149,8 @@ $no = 0;
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
 </body>
 
 </html>

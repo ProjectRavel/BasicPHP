@@ -66,3 +66,8 @@ body {
     /* Adjust based on your preference */
     height: auto;
 }
+
+.dataTables_wrapper .dataTables_filter {
+    margin-top: 20px;
+    /* Sesuaikan dengan nilai yang diinginkan */
+}
