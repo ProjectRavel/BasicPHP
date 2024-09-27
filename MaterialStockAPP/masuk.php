@@ -71,8 +71,8 @@ require 'logincheck.php';
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Tampilan Data Barang Masuk</li>
                     </ol>
-                    
-                    <div class="card mb-4">
+                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalform">+ Masukkan Barang Masuk</button>
+                    <div class="card mb-5">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             DataTable Example
@@ -108,64 +108,50 @@ require 'logincheck.php';
                                         <td>2011/04/25</td>
                                         <td>$320,800</td>
                                     </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                        <td>San Francisco</td>
-                                        <td>66</td>
-                                        <td>2009/01/12</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>22</td>
-                                        <td>2012/03/29</td>
-                                        <td>$433,060</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>33</td>
-                                        <td>2008/11/28</td>
-                                        <td>$162,700</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Brielle Williamson</td>
-                                        <td>Integration Specialist</td>
-                                        <td>New York</td>
-                                        <td>61</td>
-                                        <td>2012/12/02</td>
-                                        <td>$372,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Herrod Chandler</td>
-                                        <td>Sales Assistant</td>
-                                        <td>San Francisco</td>
-                                        <td>59</td>
-                                        <td>2012/08/06</td>
-                                        <td>$137,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rhona Davidson</td>
-                                        <td>Integration Specialist</td>
-                                        <td>Tokyo</td>
-                                        <td>55</td>
-                                        <td>2010/10/14</td>
-                                        <td>$327,900</td>
-                                    </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Barang Masuk</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <div class="mb-3">
+                                        <label for="barangOption" class="form-label">Barang</label>
+                                        <select name="barangMasuk" id="" class="form-control">
+                                            <?php
+                                            $selectAllData = mysqli_query($conn, "SELECT * FROM stock");
+                                            while ($fetchArray = mysqli_fetch_array($selectAllData)) {
+                                                $namabarangOption = $fetchArray["namabarang"];
+                                                $idbarang = $fetchArray["id_barang"];
+                                            ?>
+                                                <option value="<?php echo $idbarang; ?>"><?php echo $namabarangOption ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="namabarang" class="form-label">Penerima</label>
+                                        <input type="text" class="form-control" required id="penerima" name="penerima" placeholder="Masukkan Nama Penerima">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="qtyIn" class="form-label">Jumlah Barang Masuk</label>
+                                        <input type="number" min="0" max="255" required class="form-control" id="qtyIn" name="qtyIn"></input>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                                        <button type="submit" class="btn btn-success" name="barangIn">+ Simpan Perubahan Masuk</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,6 +169,7 @@ require 'logincheck.php';
                 </div>
             </footer>
         </div>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
