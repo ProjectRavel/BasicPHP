@@ -58,7 +58,7 @@ if (isset($_POST["barangIn"])) {
 
 if (isset($_POST["barangOut"])) {
     $barangKeluar = $_POST["barangKeluar"];
-    $penerima = $_POST["pembeli"];
+    $pembeli = $_POST["pembeli"];
     $date = date("Y-m-d");
     $qty = $_POST["qtyOut"];
 
@@ -77,6 +77,21 @@ if (isset($_POST["barangOut"])) {
         exit();
     } else {
         echo "Error: " . $addNewItemSql . "<br>" . mysqli_error($conn);
+        exit();
+    }
+}
+
+if (isset($_POST['saveEdit'])) {
+    $updatedId = $_POST['idb'];
+    $updateNama = $_POST['editNamaBarang'];
+    $updateDeskripsi = $_POST['editDeskripsiBarang'];
+
+    $updateSql = mysqli_query($conn, "UPDATE stock set namabarang='$updateNama', deskripsi='$updateDeskripsi' where id_barang='$updatedId'");
+    if ($updateSql) {
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "Error: " . $updateSql . "<br>" . mysqli_error($conn);
         exit();
     }
 }
