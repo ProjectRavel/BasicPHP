@@ -81,33 +81,41 @@ require 'logincheck.php';
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>id</th>
+                                        <th>Barang Masuk</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Penerima</th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>id</th>
+                                        <th>Barang Masuk</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Penerima</th>
+                                        <th>Total</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
+                                    <?php
+                                    $masuk = mysqli_query($conn, "SELECT * FROM masuk");
+                                    $id = 1;
+                                    foreach ($masuk as $row) : ?>
+                                        <?php
+
+                                        $namaBarang = $row['id_barang'];
+                                        $hasilNamaBarang = mysqli_query($conn, "SELECT * FROM stock WHERE id_barang='$namaBarang'");
+                                        $hasilNamaBarangArray = mysqli_fetch_array($hasilNamaBarang);
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $id++ ?></td>
+                                            <td><?php echo $hasilNamaBarangArray['namabarang']; ?></td>
+                                            <td><?php echo $row['tanggal']; ?></td>
+                                            <td><?php echo $row['keterangan']; ?></td>
+                                            <td><?php echo $row['qty']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
