@@ -81,43 +81,87 @@ require 'logincheck.php';
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>No</th>
+                                        <th>Nama Barang</th>
+                                        <th>Deksripsi</th>
+                                        <th>Stock</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>No</th>
+                                        <th>Nama Barang</th>
+                                        <th>Deksripsi</th>
+                                        <th>Stock</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
+                                    <?php
+                                    $data = mysqli_query($conn, "SELECT * FROM stock");
+                                    $id = 1;
+                                    foreach ($data as $row) :
+                                        $idbarang = $row['id_barang'];
+                                        $namaBarang = $row['namabarang'];
+                                        $deskripsi = $row['deskripsi'];
+                                        $stock = $row['stock'];
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $id++ ?></td>
+                                            <td><?php echo $namaBarang; ?></td>
+                                            <td><?php echo $deskripsi; ?></td>
+                                            <td><?php echo $stock; ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editButton<?php echo $idbarang; ?>">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteButton">
+                                                    Hapus
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal Button -->
+                                        <div class="modal fade" id="editButton<?php echo $idbarang; ?>" tabindex="-1" aria-labelledby="editButton" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="editButton">Edit Barang</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post">
+                                                            <div class="mb-3">
+                                                                <label for="editNamaBarang" class="form-label">Nama Barang</label>
+                                                                <input type="text" class="form-control" required id="editNamaBarang" name="editNamaBarang" placeholder="Baju, Casing, Handphone, dll." value="<?php echo $namaBarang; ?>">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="editDeskripsiBarang" class="form-label">Deskripsi Barang</label>
+                                                                <textarea class="form-control" id="editDeskripsiBarang" required rows="1" name="editDeskripsiBarang"><?php echo $deskripsi; ?></textarea>
+                                                            </div>
+                                                            <input type="hidden" value="<?php echo $idbarang; ?>" id="idb" name="idb" class="form-control">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-primary" name="saveEdit">Simpan perubahan</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /Modal Button -->
+                                        <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+                <div class="modal fade" id="modalform" tabindex="-1" aria-labelledby="tambahkanBarang" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambahkan Barang</h1>
+                                <h1 class="modal-title fs-5" id="tambahkanBarang">Tambahkan Barang</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -144,6 +188,7 @@ require 'logincheck.php';
                         </div>
                     </div>
                 </div>
+
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
