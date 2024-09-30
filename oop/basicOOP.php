@@ -1,32 +1,107 @@
 <?php
 
-// OOP (Object-Oriented Programming) adalah paradigma pemrograman yang menggunakan objek dan kelas untuk membuat program yang lebih modular, mudah dibaca, dan dipelihara. Dalam OOP, data dan fungsi yang memanipulasi data diatur dalam unit-unit yang disebut objek.
-
-// Class
-class Mobil
+class Mobil // CLASS
 {
-    // PROPERTIES = Data yang dimiliki oleh sebuah object
-    // $properties = "Default Values"
-    public $namaMobil = "Nama Mobil",
-        $merkMobil = "Merk Mobil",
-        $warnaMobil = "Warna Mobil",
-        $kecepatanMobil = "Kecepatan Mobil";
+    // ATTRIBUTE
+    protected $namaMobil,
+        $merkMobil,
+        $warnaMobil,
+        $kategoriMobil,
+        $kecepatanMobil;
+    //protected adalah cara untuk menggunakan atribute hanya didalam class dan tidak dapat digunakan di luar class
 
-    // METHOD = Fungsi yang dimiliki oleh sebuah object
-    public function ubahKecepatan($jumlah)
+    //public adalah cara kita unutk menggunakan attribute ke luar maupun ke dalam
+
+    // CONSTRUCTOR
+    public function __construct($namaMobil, $merkMobil, $warnaMobil, $kecepatanMobil, $kategoriMobil)
     {
-        // $this berfungsi untuk memanggil properties dalam class yang methode tempati
-        // kenapa kita harus memakai $this? karena function adalah local variable yang gabisa mengambil variable di luar function
-        // Ubah kecepatan mobil sebesar 100 km/h
-        $this->kecepatanMobil += $jumlah;
+        $this->namaMobil = $namaMobil;
+        $this->merkMobil = $merkMobil;
+        $this->warnaMobil = $warnaMobil;
+        $this->kecepatanMobil = $kecepatanMobil;
+        $this->kategoriMobil = $kategoriMobil;
     }
-}
 
-$mobilNissan = new Mobil();
-$mobilNissan->namaMobil = "Nissan GTR R-35";
-$mobilNissan->merkMobil = "GTR";
-$mobilNissan->warnaMobil = "Putih";
-$mobilNissan->kecepatanMobil = 69;
-$mobilNissan->ubahKecepatan(200);
+    // GETTER
 
-var_dump($mobilNissan);
+    public function getNamaMobil()
+    {
+        return $this->namaMobil;
+    }
+    public function getMerkMobil()
+    {
+        return $this->merkMobil;
+    }
+
+    public function getWarnaMobil()
+    {
+        return $this->warnaMobil;
+    }
+
+    public function getKecepatanMobil()
+    {
+        return $this->kecepatanMobil;
+    }
+
+    // SETTER
+
+    public function setNamaMobil($namaMobil)
+    {
+        $this->namaMobil = $namaMobil;
+    }
+
+    public function setMerkMobil($merkMobil)
+    {
+        $this->merkMobil = $merkMobil;
+    }
+
+    public function setWarnaMobil($warnaMobil)
+    {
+        $this->warnaMobil = $warnaMobil;
+    }
+
+    public function setKecepatanMobil($kecepatanMobil)
+    {
+        $this->kecepatanMobil = $kecepatanMobil;
+    }
+
+    // METHOD
+    public function cetakMobil()
+    {
+        return "Mobil " . $this->namaMobil . " sedang ngebut kecepatan sebesar " . $this->kecepatanMobil + 100 . " km/jam.";
+    }
+};
+
+//INHERITENCE = KETURUNAN SEBUAH HIRERARKI CLASS
+class MobilSport extends Mobil
+{
+    public $turbo = true;
+
+    public function mobilNgebut()
+    {
+        return $this->cetakMobil() . " Dan turbo sedang aktif!";
+    }
+};
+
+class MobilClassic extends Mobil
+{
+    public $turbo = false;
+
+    public function mobilNgebut()
+    {
+        return $this->cetakMobil() . " Dan harganya sangat mahal!";
+    }
+};
+
+
+// $VARIABLE = OBJECT
+$mobilLamborghini = new MobilSport("Lamborghini", "X-3", "Merah", 200, "Sport");
+
+$mobilLamborghini->setNamaMobil("Alphard");
+echo $mobilLamborghini->getNamaMobil();
+
+
+// VISIBILITY
+// public: dapat digunakan di mana saja, bahkan di luar class
+// protected: hanya dapat di gunakan di dalam sebuah sebuah class beserta fungsinya
+// private: hanya dapat di gunakan di dalam sebuah class tertentu saja
