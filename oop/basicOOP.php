@@ -105,3 +105,17 @@ echo $mobilLamborghini->getNamaMobil();
 // public: dapat digunakan di mana saja, bahkan di luar class
 // protected: hanya dapat di gunakan di dalam sebuah sebuah class beserta fungsinya
 // private: hanya dapat di gunakan di dalam sebuah class tertentu saja
+
+
+// Static Keyword
+
+class ContohStatic
+{
+    public static $namaStatic = "Contoh Static";
+
+    public static function tampilkanStatic() {
+        return "Ini adalah contoh static keyword";
+    }
+}
+
+echo ContohStatic::$namaStatic; // Contoh cara mengakses static class
